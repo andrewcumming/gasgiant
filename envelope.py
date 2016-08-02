@@ -11,7 +11,7 @@ plt.rc('text', usetex=False)
 plt.rc('font', family='serif')
 
 def get_S(L,Starget,Ttop,Ptop,Mdot):
-	x,x,x,x,x,x,x,Sconv,x,x,x = gg.make_envelope(L*4e33,Ptop,Ttop,Mdot)
+	x,x,x,x,x,x,x,Sconv,x,x,x = gg.make_envelope(L*gg.Lsun,Ptop,Ttop,Mdot)
 	print('-----> ',L,Sconv,Starget)
 	return Sconv-Starget
 
@@ -25,7 +25,7 @@ if len(sys.argv) < 5:
 	print("Arguments: L(LSun) Mdot(ME/yr) Ptop(bars) Ttop(K) plot_flag mass radius Starget")
 	exit()
 
-Lin = float(sys.argv[1])*4e33
+Lin = float(sys.argv[1])*gg.Lsun
 Mdot = float(sys.argv[2])*2e20      # g/s corresponds to 1e-2 MEarth/yr
 Ptop = float(sys.argv[3])*1e6
 Ttop = float(sys.argv[4])
@@ -43,7 +43,7 @@ gg.kappa_min = 0.0
 #Mdot = 0.01 *2e20
 #Ptop = 0.1 * 1e6
 #plot_flag = 0
-#L = 6.2e-5*4e33
+#L = 6.2e-5*gg.Lsun
 #Mdot = 0.01 *2e20
 #Ptop = 0.1 * 1e6
 #Ttop =1200.0
@@ -56,14 +56,14 @@ gg.kappa_min = 0.0
 #for Ttop in Temps:
 #Starget = 10.5
 if Lin<0.0:
-	Ltop = 4e33*brentq(get_S,1e-5,1e-3,rtol=1e-5,args=(Starget,Ttop,Ptop,Mdot))
+	Ltop = gg.Lsun*brentq(get_S,1e-5,1e-3,rtol=1e-5,args=(Starget,Ttop,Ptop,Mdot))
 else:
 	Ltop=Lin
 P, T, Larr, dell, Sarr, Prcb, Trcb, Sconv,Lrcb,tau,deladarr = gg.make_envelope(Ltop,Ptop,Ttop,Mdot)
 Ttop = T[0]
 Ptop = P[0]
 Lrcb=Larr[-1]
-print("Ttop: L, Srcb, Prcb, Trcb, Lrcb, kappa_rcb = ",Ttop,Ltop/4e33,Sconv,Prcb,Trcb,Lrcb/4e33,gg.opacity(Prcb,Trcb))
+print("Ttop: L, Srcb, Prcb, Trcb, Lrcb, kappa_rcb = ",Ttop,Ltop/gg.Lsun,Sconv,Prcb,Trcb,Lrcb/gg.Lsun,gg.opacity(Prcb,Trcb))
 
 
 i=0
@@ -75,13 +75,13 @@ print("Teff = ", (Larr[0]/(4.0*3.1415*gg.radius**2*gg.sigmaSB))**0.25)
 
 #if not plot_flag:
 #	f = open('models.dat', 'a')
-#	f.write("%lg %lg %lg %lg %lg %lg %lg %lg %lg %lg %lg %lg\n" % (Mdot/2e20,Ptop/1e6,Ttop,Ltop/4e33,Sconv,Prcb,Trcb,Lrcb/4e33,gg.opacity(Prcb,Trcb),gg.entropy(Ptop,Ttop),gg.mass,gg.radius))
+#	f.write("%lg %lg %lg %lg %lg %lg %lg %lg %lg %lg %lg %lg\n" % (Mdot/2e20,Ptop/1e6,Ttop,Ltop/gg.Lsun,Sconv,Prcb,Trcb,Lrcb/gg.Lsun,gg.opacity(Prcb,Trcb),gg.entropy(Ptop,Ttop),gg.mass,gg.radius))
 #	f.close()
 
 
 print("---------------------------------------------------")
 print("top entropy = ",gg.entropy(Ptop,Ttop))
-print("for S=",Starget," L=",lum(mass,Starget)/3.83e33, " tS=", tS(mass,Starget))
+print("for S=",Starget," L=",lum(mass,Starget)/gg.Lsun, " tS=", tS(mass,Starget))
 print("with accretion, cooling time = ", lum(mass,Starget)*tS(mass,Starget)/Lrcb)
 print("cooling time/accretion time = ", (lum(mass,Starget)*tS(mass,Starget)/Lrcb) / (10.0*318.0*2e20/Mdot))
 print("---------------------------------------------------")
@@ -105,12 +105,11 @@ if plot_flag:
 	ax = fig.add_subplot(3,3,2)
 	ax.set_xscale('log')
 	#plt.ylim([8e28,1e30])
-	plt.plot(P,Larr/4e33,'k')
+	plt.plot(P,Larr/gg.Lsun,'k')
 	#plt.plot(P2,Larr2,'r--')
 	ax.set_yscale('linear')
 	plt.xlabel('$P\ (\mathrm{erg\ cm^{-3}})$')
-	plt.ylabel('$L\ (cgs)$')
-	#plt.ylabel('$L\ (L_{\odot})$')
+	plt.ylabel('$L\ (L_{\odot})$')
 	#plt.savefig('LS.pdf')
 
 	ax = fig.add_subplot(3,3,3)

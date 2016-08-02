@@ -332,6 +332,7 @@ mp = 1.67e-24
 arad = 7.5657e-15
 clight = 3e10
 sigmaSB = 5.67e-5
+Lsun=3.828e33
 
 # planet properties
 radius = 7e9
