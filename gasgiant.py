@@ -249,8 +249,8 @@ def derivs(f, P, Mdot):
 	T = f[0]
 	L = f[1]
 	tau = f[2]
-#	if L<1e-10: 
-#		L=1e-10
+	if L<1e-10: 
+		L=1e-10
 
 	# entropy derivatives
 	S1 = entropy(P,T)
