@@ -240,7 +240,7 @@ def calculate_dell(P,T,L,tau):
 		AA = 4.0*arad*clight*T**4*grav/ (3.0*opacity(P,T)*P)
 		CC = CP(P,T)*T*(P*density(P,T)/32.0)**0.5
 		BB = 0.75*(AA/CC)*tau**2/(1.0+0.5*tau**2)
-		del_minus_delad = brentq(find_del_minus_delad,-20.0,20.0,rtol=1e-3,args=(flux,AA,BB,CC,dlad,))
+		del_minus_delad = brentq(find_del_minus_delad,0.0,20.0,rtol=1e-3,args=(flux,AA,BB,CC,dlad,))
 		dell = dlad + del_minus_delad
 		
 	return dell
