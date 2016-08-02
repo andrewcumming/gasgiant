@@ -55,7 +55,7 @@ gg.kappa_min = 0.0
 
 #for Ttop in Temps:
 #Starget = 10.5
-if Ltop<0.0:
+if Lin<0.0:
 	Ltop = 4e33*brentq(get_S,1e-5,1e-3,rtol=1e-5,args=(Starget,Ttop,Ptop,Mdot))
 else:
 	Ltop=Lin
