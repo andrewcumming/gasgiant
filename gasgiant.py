@@ -334,9 +334,13 @@ clight = 3e10
 sigmaSB = 5.67e-5
 Lsun=3.828e33
 
+RJ = 7.15e9
+MJ = 1.898e30
+MEperyear = 1.893e20
+
 # planet properties
-radius = 7e9
-mass = 2e30
+radius = 1.0*RJ
+mass = 1.0*MJ
 grav = 6.67e-8 * mass/radius**2
 YHe = 0.243
 #YHe = 0.40

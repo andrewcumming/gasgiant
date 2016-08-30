@@ -26,7 +26,7 @@ if len(sys.argv) < 5:
 	exit()
 
 Lin = float(sys.argv[1])*gg.Lsun
-Mdot = float(sys.argv[2])*2e20      # g/s corresponds to 1e-2 MEarth/yr
+Mdot = float(sys.argv[2])*gg.MEperyear      # g/s corresponds to 1e-2 MEarth/yr
 Ptop = float(sys.argv[3])*1e6
 Ttop = float(sys.argv[4])
 plot_flag = int(sys.argv[5])
@@ -34,8 +34,8 @@ mass = float(sys.argv[6])
 radius = float(sys.argv[7])
 Starget = float(sys.argv[8])
 
-gg.radius = 7e9 * radius
-gg.mass = 2e30 * mass
+gg.radius = gg.RJ * radius
+gg.mass = gg.MJ * mass
 gg.grav = 6.67e-8 * gg.mass/gg.radius**2
 
 gg.kappa_min = 0.0
@@ -83,7 +83,7 @@ print("---------------------------------------------------")
 print("top entropy = ",gg.entropy(Ptop,Ttop))
 print("for S=",Starget," L=",lum(mass,Starget)/gg.Lsun, " tS=", tS(mass,Starget))
 print("with accretion, cooling time = ", lum(mass,Starget)*tS(mass,Starget)/Lrcb)
-print("cooling time/accretion time = ", (lum(mass,Starget)*tS(mass,Starget)/Lrcb) / (10.0*318.0*2e20/Mdot))
+print("cooling time/accretion time = ", (lum(mass,Starget)*tS(mass,Starget)/Lrcb) / (10.0*318.0*gg.MEperyear/Mdot))
 print("---------------------------------------------------")
 
 
