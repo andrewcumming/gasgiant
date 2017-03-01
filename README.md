@@ -4,6 +4,8 @@
 
 `data/grid3S` is a table of gas giant models from [Marleau & Cumming 2014](http://adsabs.harvard.edu/abs/2014MNRAS.437.1378M)
 
+`plot_Lt.py` shows how to use this to plot luminosity against time for cooling planets starting with any initial entropy.
+
 ## Envelope Models
 
 `envelope.py` calculates plane-parallel models of accreting envelopes (see section 3 of [Berardo et al. 2017](http://adsabs.harvard.edu/abs/2017ApJ...834..149B))
